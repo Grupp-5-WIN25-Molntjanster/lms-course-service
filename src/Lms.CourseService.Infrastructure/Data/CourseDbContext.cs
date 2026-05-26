@@ -16,7 +16,7 @@ public class CourseDbContext(DbContextOptions<CourseDbContext> options)
                 Id = 1,
                 Title = "Digital Marketing",
                 Description = "Learn digital marketing fundamentals",
-                ImageUrl = "https://example.com/image1.jpg",
+                ImageUrl = "/Digital-Marketing-Small.svg",
                 Instructor = "John Doe",
                 LessonsCount = 5,
                 Duration = "1 hr 16 min"
@@ -26,7 +26,7 @@ public class CourseDbContext(DbContextOptions<CourseDbContext> options)
                 Id = 2,
                 Title = "UI/UX Design",
                 Description = "Introduction to UI/UX design",
-                ImageUrl = "https://example.com/image2.jpg",
+                ImageUrl = "/UI-UX-Small.svg",
                 Instructor = "Jane Smith",
                 LessonsCount = 8,
                 Duration = "2 hr 30 min"
