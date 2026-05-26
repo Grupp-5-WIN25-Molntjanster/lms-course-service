@@ -33,7 +33,5 @@ public class CourseDbContext(DbContextOptions<CourseDbContext> options)
             }
         );
     }
-
-
 }
 
