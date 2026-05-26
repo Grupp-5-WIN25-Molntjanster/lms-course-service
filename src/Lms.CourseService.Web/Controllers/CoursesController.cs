@@ -82,4 +82,25 @@ public class CoursesController(CourseDbContext context) : ControllerBase
             Duration = course.Duration
         });
     }
+
+    [Authorize]
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateCourse(int id, CourseDto dto)
+    {
+        var course = await context.Courses.FindAsync(id);
+
+        if (course is null)
+            return NotFound();
+
+        course.Title = dto.Title;
+        course.Description = dto.Description;
+        course.ImageUrl = dto.ImageUrl;
+        course.Instructor = dto.Instructor;
+        course.LessonsCount = dto.LessonsCount;
+        course.Duration = dto.Duration;
+
+        await context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
