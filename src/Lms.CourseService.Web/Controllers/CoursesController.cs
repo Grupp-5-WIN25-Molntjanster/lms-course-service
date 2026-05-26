@@ -3,7 +3,6 @@ using Lms.CourseService.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lms.CourseService.Application.DTOs;
-using Lms.CourseService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Lms.CourseService.Web.Controllers;
