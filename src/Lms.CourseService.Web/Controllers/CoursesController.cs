@@ -103,4 +103,19 @@ public class CoursesController(CourseDbContext context) : ControllerBase
 
         return NoContent();
     }
+
+    [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteCourse(int id)
+    {
+        var course = await context.Courses.FindAsync(id);
+
+        if (course is null)
+            return NotFound();
+
+        context.Courses.Remove(course);
+        await context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
