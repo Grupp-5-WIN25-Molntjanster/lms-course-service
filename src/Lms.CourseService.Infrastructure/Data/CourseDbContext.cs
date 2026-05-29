@@ -7,6 +7,7 @@ public class CourseDbContext(DbContextOptions<CourseDbContext> options)
     : DbContext(options)
 {
     public DbSet<Course> Courses => Set<Course>();
+    public DbSet<Review> Reviews => Set<Review>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
