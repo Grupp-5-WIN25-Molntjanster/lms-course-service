@@ -1,8 +1,8 @@
-﻿using System;
+﻿namespace Lms.CourseService.Application.PopularCourses;
 
-public class Class1
+public class PopularCourseDto
 {
-	public Class1()
-	{
-	}
+    public string Title { get; set; } = string.Empty;
+    public string Subtitle { get; set; } = string.Empty;
+    public string IconUrl { get; set; } = string.Empty;
 }
