@@ -53,7 +53,6 @@ public class CoursesController(CourseDbContext context) : ControllerBase
         return Ok(course);
     }
 
-    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateCourse(CourseDto dto)
     {
@@ -82,7 +81,6 @@ public class CoursesController(CourseDbContext context) : ControllerBase
         });
     }
 
-    [Authorize]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateCourse(int id, CourseDto dto)
     {
@@ -103,7 +101,6 @@ public class CoursesController(CourseDbContext context) : ControllerBase
         return NoContent();
     }
 
-    [Authorize]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteCourse(int id)
     {

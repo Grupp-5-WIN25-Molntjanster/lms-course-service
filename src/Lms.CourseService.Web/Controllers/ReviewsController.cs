@@ -78,7 +78,6 @@ public class ReviewsController : ControllerBase
 
     // Denna endpoint används för att skapa en ny recension.
     [HttpPost]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -90,21 +89,8 @@ public class ReviewsController : ControllerBase
                 message = "Rating must be between 1 and 5."
             });
 
-        // Hämta användarens ID och roll från JWT-token
-        var userIdClaim = User.FindFirst("sub")?.Value;
-        // Om du har en "role" claim i din JWT, kan du hämta den på samma sätt
-        var role = User.FindFirst("role")?.Value;
+        var userId = 1;
 
-        // Kontrollera om userIdClaim är null eller inte kan konverteras till Guid
-        if (!int.TryParse(userIdClaim, out var userId))
-        {
-            return Unauthorized(new
-            {
-                message = "Invalid or missing user id claim."
-            });
-        }
-
-        // Kontrollera om användaren redan har recenserat kursen
         var review = new Review
         {
             CourseId = request.CourseId,
@@ -114,18 +100,17 @@ public class ReviewsController : ControllerBase
             CreatedAtUtc = DateTime.UtcNow
         };
 
-        // Spara recensionen i databasen
         await _reviewRepository.AddAsync(review);
-        // Spara ändringarna i databasen
         await _reviewRepository.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetByCourse),
-            new { courseId = review.CourseId }, review);
+        return CreatedAtAction(
+            nameof(GetByCourse),
+            new { courseId = review.CourseId },
+            review);
     }
 
     // Denna endpoint används för att uppdatera en befintlig recension.
     [HttpPut("{id}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -178,7 +163,6 @@ public class ReviewsController : ControllerBase
 
     // Denna endpoint används för att ta bort en recension baserat på dess ID.
     [HttpDelete("{id}")]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

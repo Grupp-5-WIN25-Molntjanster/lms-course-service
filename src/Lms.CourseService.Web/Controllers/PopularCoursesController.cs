@@ -16,25 +16,25 @@ public class PopularCoursesController : ControllerBase
 			{
 				Title = "Graphic Design",
 				Subtitle = "Creating Visual Content",
-				IconUrl = "/courseImages/graphic-design.svg"
+				IconUrl = "/courseImages/graphic-d-icon.svg"
 			},
 			new PopularCourseDto
 			{
 				Title = "UI/UX Design",
 				Subtitle = "Combines User Interface (UI)",
-				IconUrl = "/courseImages/uiux.svg"
+				IconUrl = "/courseImages/uiux-d-icon.svg"
 			},
 			new PopularCourseDto
 			{
 				Title = "Brand Identity",
 				Subtitle = "The Collection of Visual",
-				IconUrl = "/courseImages/brand.svg"
+				IconUrl = "/courseImages/brand-i-icon.svg"
 			},
 			new PopularCourseDto
 			{
 				Title = "Web Design",
 				Subtitle = "Process of Creating Websites",
-				IconUrl = "/courseImages/web.svg"
+				IconUrl = "/courseImages/web-d-icon.svg"
 			}
 		});
 	}
