@@ -1,41 +1,38 @@
 using Lms.CourseService.Application.PopularCourses;
+using Lms.CourseService.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lms.CourseService.Web.Controllers;
 
 [ApiController]
 [Route("api/popular-courses")]
-public class PopularCoursesController : ControllerBase
+public class PopularCoursesController(CourseDbContext context) : ControllerBase
 {
-	[HttpGet]
-	public ActionResult<IEnumerable<PopularCourseDto>> Get()
-	{
-		return Ok(new[]
-		{
-			new PopularCourseDto
-			{
-				Title = "Graphic Design",
-				Subtitle = "Creating Visual Content",
-				IconUrl = "/courseImages/graphic-d-icon.svg"
-			},
-			new PopularCourseDto
-			{
-				Title = "UI/UX Design",
-				Subtitle = "Combines User Interface (UI)",
-				IconUrl = "/courseImages/uiux-d-icon.svg"
-			},
-			new PopularCourseDto
-			{
-				Title = "Brand Identity",
-				Subtitle = "The Collection of Visual",
-				IconUrl = "/courseImages/brand-i-icon.svg"
-			},
-			new PopularCourseDto
-			{
-				Title = "Web Design",
-				Subtitle = "Process of Creating Websites",
-				IconUrl = "/courseImages/web-d-icon.svg"
-			}
-		});
-	}
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<PopularCourseDto>>> Get()
+    {
+        var popularCourses = await context.Courses
+            .Select(course => new
+            {
+                Course = course,
+                AverageRating = context.Reviews
+                    .Where(review => review.CourseId == course.Id)
+                    .Average(review => (double?)review.Rating) ?? 0,
+                ReviewCount = context.Reviews
+                    .Count(review => review.CourseId == course.Id)
+            })
+            .OrderByDescending(x => x.AverageRating)
+            .ThenByDescending(x => x.ReviewCount)
+            .Take(4)
+            .Select(x => new PopularCourseDto
+            {
+                Title = x.Course.Title,
+                Subtitle = x.Course.Instructor,
+                IconUrl = x.Course.ImageUrl
+            })
+            .ToListAsync();
+
+        return Ok(popularCourses);
+    }
 }
