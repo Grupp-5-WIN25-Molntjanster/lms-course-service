@@ -1,2 +1,8 @@
 <Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Lms.CourseService.Application/Lms.CourseService.Application.csproj" />
+    <Project Path="src/Lms.CourseService.Domain/Lms.CourseService.Domain.csproj" />
+    <Project Path="src/Lms.CourseService.Infrastructure/Lms.CourseService.Infrastructure.csproj" />
+    <Project Path="src/Lms.CourseService.Web/Lms.CourseService.Web.csproj" />
+  </Folder>
 </Solution>
